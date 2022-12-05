@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="row">
+    <h1>Catalog List</h1>
+  </div>
+  <div class="row">
+    <div class="col text-end">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal" onclick="setModalTitle('Add Catalog')">add catalog</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-stripped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Title</th>
+            <th scope="col">Subtitle</th>
+            <th scope="col">Texts</th>
+            <th scope="col">Image</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% catalogs.forEach((catalog, index) => { %>
+          <tr>
+            <td scope="row"><%= index + 1 %></td>
+            <td><%= catalog.title %></td>
+            <td><%= catalog.subtitle %></td>
+            <td><%= catalog.texts %></td>
+            <td>
+              <img src="http://localhost:8000/api/catalogs/image/<%= catalog.image %>" loading="lazy" alt="catalog-picture" style="max-width: 200px" />
+            </td>
+            <td>
+              <button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button>
+              <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="formModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- <form method="post" enctype="multipart/form-data" id="form"> -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input name="title" type="text" class="form-control" id="titleInput" placeholder="Title" />
+              <label for="titleInput">Title</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-floating mb-3">
+              <input name="subtitle" type="text" class="form-control" id="subtitleInput" placeholder="Subtitle" />
+              <label for="subtitleInput">Subtitle</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-floating mb-3">
+              <textarea name="texts" class="form-control" placeholder="Some text to put into catalog" id="textsInput" style="height: 100px"></textarea>
+              <label for="textsInput">Texts</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <img src="/images/placeholder.jpg" alt="image-preview" id="imagePreview" class="img-fluid" style="max-height: 200px" />
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="imageInput" class="form-label">Catalog Image</label>
+              <input name="image" class="form-control" type="file" accept="image/*" id="imageInput" onchange="showPreview(event)" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" type="reset" class="btn btn-secondary form-submit" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" type="submit" class="btn btn-primary" id="formSubmit">Submit</button>
+      </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+
+<script src="/js/catalogs.js"></script>

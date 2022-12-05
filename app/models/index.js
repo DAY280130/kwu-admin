@@ -6,6 +6,6 @@ const db = {};
 db.mongoose = mongoose;
 
 // models list
-// db.accounts = require("./account-model")(mongoose);
+db.catalogs = require("./catalog-model")(mongoose);
 
 module.exports = db;
