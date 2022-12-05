@@ -4,7 +4,7 @@
   </div>
   <div class="row">
     <div class="col text-end">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal" onclick="setModalTitle('Add Catalog')">add catalog</button>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal" onclick="setModalMode('input')">add catalog</button>
     </div>
   </div>
   <div class="row">
@@ -31,7 +31,9 @@
               <img src="http://localhost:8000/api/catalogs/image/<%= catalog.image %>" loading="lazy" alt="catalog-picture" style="max-width: 200px" />
             </td>
             <td>
-              <button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button>
+              <button class="btn btn-warning btn-edit" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<%= catalog.id %>">
+                <i class="bi bi-pencil-square"></i>
+              </button>
               <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
             </td>
           </tr>
@@ -89,8 +91,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" type="reset" class="btn btn-secondary form-submit" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" type="submit" class="btn btn-primary" id="formSubmit">Submit</button>
+        <button type="button" type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" type="submit" class="btn btn-primary" id="formSubmit" data-id="" data-oldimage="">Submit</button>
       </div>
       <!-- </form> -->
     </div>

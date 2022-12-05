@@ -4,7 +4,6 @@ const Catalog = db.catalogs;
 
 exports.create = async (req, res) => {
   try {
-    // input presence check
     console.log(req.body);
     const { title, subtitle, texts, image } = req.body;
     if (!title) {
@@ -45,6 +44,20 @@ exports.readOne = async (req, res) => {
   }
 };
 
+exports.update = async (req, res) => {
+  try {
+    console.log(req.body);
+    const { id, title, subtitle, texts, image } = req.body;
+    if (!(id && title)) {
+      return res.status(400).send({ update_status: "failed", message: "not enough input" });
+    }
+    await Catalog.findByIdAndUpdate(id, { title, subtitle, texts, image });
+    return res.status(200).send({ update_status: "success", message: "catalog updated successfully" });
+  } catch (error) {
+    return res.status(500).send({ update_status: "failed", message: "internal server error", error });
+  }
+};
+
 exports.uploadImage = async (req, res) => {
   // console.log(req.file);
   if (req.file) {
@@ -78,6 +91,7 @@ exports.viewImage = async (req, res) => {
 exports.deleteImage = async (req, res) => {
   // console.log(req);
   try {
+    console.log(req.body);
     const { filename } = req.body;
     if (!filename) {
       return res.status(400).send({ delimg_status: "failed", message: "file name required" });

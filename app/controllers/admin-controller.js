@@ -6,7 +6,7 @@ exports.loadCatalogs = async (req, res) => {
     })
       .then((respond) => respond.json())
       .then((respond) => (catalogs = respond.catalogs));
-    console.log(catalogs);
+    // console.log(catalogs);
     return res.status(200).render("catalogs", { layout: "layouts/main-layout", title: "Catalogs", catalogs });
   } catch (error) {
     return res.status(500).send({
