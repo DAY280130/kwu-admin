@@ -46,7 +46,7 @@ exports.readOne = async (req, res) => {
 
 exports.update = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { id, title, subtitle, texts, image } = req.body;
     if (!(id && title)) {
       return res.status(400).send({ update_status: "failed", message: "not enough input" });
@@ -55,6 +55,19 @@ exports.update = async (req, res) => {
     return res.status(200).send({ update_status: "success", message: "catalog updated successfully" });
   } catch (error) {
     return res.status(500).send({ update_status: "failed", message: "internal server error", error });
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const { id } = req.body;
+    if (!id) {
+      return res.status(400).send({ delete_status: "failed", message: "not enough input" });
+    }
+    await Catalog.findByIdAndDelete(id);
+    return res.status(200).send({ delete_status: "success", message: "catalog deleted successfully" });
+  } catch (error) {
+    return res.status(500).send({ delete_status: "failed", message: "internal server error", error });
   }
 };
 

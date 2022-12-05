@@ -126,3 +126,46 @@ editButtons.forEach((button) => {
       });
   });
 });
+
+const deleteButtons = document.querySelectorAll(".btn-delete");
+
+deleteButtons.forEach((button) => {
+  button.addEventListener("click", async function () {
+    // console.log(this.dataset.id);
+    if (!confirm("Yakin Ingin Menghapus?")) {
+      return;
+    }
+    await fetch(`http://localhost:8000/api/catalogs/get/${button.dataset.id}`)
+      .then((respond) => respond.json())
+      .then(async (respond) => {
+        const id = respond.catalog.id;
+        const filename = respond.catalog.image;
+        await fetch("http://localhost:8000/api/catalogs/remove", {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          body: JSON.stringify({
+            id,
+          }),
+        })
+          .then((resp) => resp.json())
+          .then(async (resp) => {
+            if (resp.delete_status === "success") {
+              await fetch("http://localhost:8000/api/catalogs/delimg", {
+                method: "DELETE",
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                },
+                body: JSON.stringify({
+                  filename,
+                }),
+              })
+                .then((respo) => respo.json())
+                .then((resp) => console.log(resp));
+            }
+          });
+      });
+    location.reload();
+  });
+});
