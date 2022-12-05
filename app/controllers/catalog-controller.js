@@ -4,7 +4,7 @@ const Catalog = db.catalogs;
 
 exports.create = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { title, subtitle, texts, image } = req.body;
     if (!title) {
       return res.status(400).send({ create_status: "failed", message: "not enough input" });
@@ -104,7 +104,7 @@ exports.viewImage = async (req, res) => {
 exports.deleteImage = async (req, res) => {
   // console.log(req);
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { filename } = req.body;
     if (!filename) {
       return res.status(400).send({ delimg_status: "failed", message: "file name required" });
